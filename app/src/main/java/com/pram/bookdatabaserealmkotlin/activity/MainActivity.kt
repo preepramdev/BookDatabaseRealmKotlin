@@ -32,39 +32,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun presetBook() {
         val books: List<Book> = BookDatabaseManager.instance!!.getAllBooks()!!
+
         if (books.isEmpty()) {
             val presetBooks: MutableList<Book> = ArrayList()
-            presetBooks.add(
-                Book(
-                    ".NET Multithreading",
-                    "Alan Dennis",
-                    "360"
-                )
-            )
-            presetBooks.add(
-                Book(
-                    "Unix Basic",
-                    "W. John Snow",
-                    "126"
-                )
-            )
-            presetBooks.add(
-                Book(
-                    "Hello! Python",
-                    "Anthony Briggs",
-                    "352"
-                )
-            )
-            presetBooks.add(
-                Book(
-                    "Software Requirements",
-                    "Benjamin L. Kovitz",
-                    "448"
-                )
-            )
+
+            presetBooks.add(Book(".NET Multithreading", "Alan Dennis", "360"))
+            presetBooks.add(Book("Unix Basic", "W. John Snow", "126"))
+            presetBooks.add(Book("Hello! Python", "Anthony Briggs", "352"))
+            presetBooks.add(Book("Software Requirements", "Benjamin L. Kovitz", "448"))
+
             presetBooks.forEach { presetBook ->
                 BookDatabaseManager.instance!!.createBook(presetBook)
             }
+
             Log.e(TAG, "presetBook: $presetBooks")
         } else {
             Log.e(TAG, "books: $books")
