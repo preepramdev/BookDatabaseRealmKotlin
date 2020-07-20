@@ -16,8 +16,9 @@ class Contextor private constructor() {
     companion object {
         var instance: Contextor? = null
             get() {
-                if (field == null) field =
-                    Contextor()
+                if (field == null) {
+                    field = Contextor()
+                }
                 return field
             }
             private set

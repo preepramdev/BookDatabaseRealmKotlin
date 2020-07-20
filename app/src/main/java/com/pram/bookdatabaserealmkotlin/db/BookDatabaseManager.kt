@@ -15,8 +15,7 @@ class BookDatabaseManager {
         var instance: BookDatabaseManager? = null
             get() {
                 if (field == null) {
-                    field =
-                        BookDatabaseManager()
+                    field = BookDatabaseManager()
                 }
                 return field
             }
@@ -34,30 +33,34 @@ class BookDatabaseManager {
 
     fun createBook(book: Book) {
         book.id = nextId()
-        realm.beginTransaction()
-        realm.insert(book)
-        realm.commitTransaction()
+        realm.apply {
+            beginTransaction()
+            insert(book)
+            commitTransaction()
+        }
     }
 
     private fun nextId(): Int {
-        val student =
-            realm.where(Book::class.java)
-                .max("id")
+        val student = realm.where(Book::class.java).max("id")
         return if (student == null) 0 else student.toInt() + 1
     }
 
     fun updateBook(book: Book) {
-        realm.beginTransaction()
-        realm.insertOrUpdate(book)
-        realm.commitTransaction()
+        realm.apply {
+            beginTransaction()
+            insertOrUpdate(book)
+            commitTransaction()
+        }
     }
 
     fun removeBook(bookId: Int) {
-        realm.beginTransaction()
-        realm.where(Book::class.java)
-            .equalTo("id", bookId)
-            .findFirst()
-            ?.deleteFromRealm()
-        realm.commitTransaction()
+        realm.apply {
+            beginTransaction()
+            where(Book::class.java)
+                .equalTo("id", bookId)
+                .findFirst()
+                ?.deleteFromRealm()
+            commitTransaction()
+        }
     }
 }
