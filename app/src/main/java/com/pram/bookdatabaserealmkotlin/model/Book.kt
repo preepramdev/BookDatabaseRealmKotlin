@@ -4,7 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize // if it doesn't work try to clean project then rebuild
+//@RealmClass // or try this
 open class Book(
     /**
      * @Required กำหนดให้ Field นั้น ห้ามมีค่า null
@@ -23,33 +27,5 @@ open class Book(
         this.title = title
         this.author = author
         this.pages = pages
-    }
-
-    constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString()
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(title)
-        parcel.writeString(author)
-        parcel.writeString(pages)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Book> {
-        override fun createFromParcel(parcel: Parcel): Book {
-            return Book(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Book?> {
-            return arrayOfNulls(size)
-        }
     }
 }
